@@ -81,7 +81,7 @@ int main()
 	double x[MAX], y[100];
 	int a[MAX][MAX];
 	char tt;
-	string topicName;
+	string topicName, Name;
 
 	cout << "          ----------------------------------------------------------------------------------------------------" << endl;
 	cout << "          |                                     NHOM SINH VIEN THUC HIEN                                     |" << endl;
@@ -214,9 +214,9 @@ int main()
 			case 4:
 			{
 
-				topicName = "notepad \"" + topicName + "\"";
+				Name = "notepad \"" + topicName + "\"";
 
-				system(topicName.c_str());
+				system(Name.c_str());
 
 				break;
 				system("pause");
