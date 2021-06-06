@@ -233,6 +233,6 @@ int main()
 				system("pause");
 			}
 			}
-		} while (chon != 4);
+		} while (chon != 3);
 	} while (chon != 5);
 }
