@@ -213,8 +213,6 @@ int main()
 
 			case 4:
 			{
-				cout << "\t\nnhap ten file: ";
-				cin >> topicName;
 
 				topicName = "notepad \"" + topicName + "\"";
 
