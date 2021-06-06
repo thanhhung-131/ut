@@ -18,20 +18,22 @@ void nhapmatran(int a[][MAX], int n) /* nhap ma tran hai chieu */
 void xuatmatran(int a[][MAX], int n) /* xuat ma tran hai chieu */
 {
 	for (int i = 1; i <= n; i++)
-	{	cout<<'\t\t\t\t';
+	{
+		cout << "\t\t\t\t";
 		for (int j = 1; j <= n + 1; j++)
-			std::cout << a[i][j] << '\t';
-		cout <<'\n\n' <<endl;
+			std::cout << a[i][j] << "\t";
+		cout << "\n\n"
+			 << endl;
 	}
 }
 void nhap(double *a, int n)
 { /* nhap day n phan tu */
 	int i;
 	for (i = 1; i <= n; i++)
-		{
-			cout <<'\t\t' << "x" <<i<<"= ";
+	{
+		cout << "\t\tx" << i << "= ";
 		cin >> a[i];
-		}
+	}
 }
 /* Xuat day n phan tu */
 void xuat(double a[], int n)
@@ -39,78 +41,123 @@ void xuat(double a[], int n)
 	int i;
 	for (i = 1; i <= n; i++)
 	{
-		cout <<'\n\t\t'<<"x["<<i<<"]= "<< a[i] << " ";
+		cout << "\n\t\tx[" << i << "]= " << a[i] << " ";
 	}
+}
+void swap(int &a, int &b)
+{
+	int temp = a;
+	a = b;
+	b = temp;
+}
+void index()
+{
+	system("cls"); // lenh xoa man hinh
+	cout << "\t\t\t---------------------------------------------------------------------" << endl;
+	cout << "\t\t\t\t   ***************************************" << endl;
+	cout << "\t\t\t\t\t MENU giai phuong trinh tuyen tinh\n"
+		 << endl;
+	cout << "\n"
+		 << endl;
+	cout << "\t\t\t\t\t1 xuat ma tran\n"
+		 << endl;
+
+	cout << "\t\t\t\t\t2 giai bang phuong phap gauss siedel\n"
+		 << endl;
+	cout << "\t\t\t\t\t3 tro ve de nhap file khac\n"
+		 << endl;
+	cout << "\t\t\t\t\t4 vao file de sua du lieu(khi xong luu va thoat de tiep tuc)\n"
+		 << endl;
+	cout << "\t\t\t\t\t5 EXIT\n"
+		 << endl;
+	cout << "\t\t\t\t   ***************************************" << endl;
+	cout << "\t\t\t---------------------------------------------------------------------" << endl;
+	cout << " MOI BAN CHON: ";
 }
 
 int main()
 {
-	int n, i, j, lap, dem,chon;
+	int n, i, j, lap, dem, chon;
 	double x[MAX], y[100];
 	int a[MAX][MAX];
 	char tt;
 	string topicName;
+
+	cout << "          ----------------------------------------------------------------------------------------------------" << endl;
+	cout << "          |                                     NHOM SINH VIEN THUC HIEN                                     |" << endl;
+	cout << "          |                                          HO THANH HUNG                                           |" << endl;
+	cout << "          |                                          TRAN ANH HAO                                            |" << endl;
+	cout << "          |                                        DE TAI DO AN KY 2                                         |" << endl;
+	cout << "          |                  VIET CHUONG TRINH GIAI HE PHUONG TRINH BANG PHUONG PHAP GAUSS SEIDEL            |" << endl;
+	cout << "          ----------------------------------------------------------------------------------------------------" << endl;
 	do
 	{
-	system("cls"); // lenh xoa man hinh 
-    cout << "          ----------------------------------------------------------------------------------------------------" << endl;
-    cout << "          |                                     NHOM SINH VIEN THUC HIEN                                     |"<< endl;
-    cout << "          |                                          HO THANH HUNG                                           |"<< endl;
-    cout << "          |                                          TRAN ANH HAO                                            |"<< endl;
-    cout << "          |                                        DE TAI DO AN KY 2                                         |"<< endl;
-    cout << "          |                  VIET CHUONG TRINH GIAI HE PHUONG TRINH BANG PHUONG PHAP GAUSS SEIDEL            |"<< endl;
-    cout << "          ----------------------------------------------------------------------------------------------------" << endl;
-    fstream f;
-	f.open("C:\\Users\\DELL\\OneDrive\\Documents\\nhapnvamatran.txt", ios::in); /* mo file doc n va ma tran */
-	if (f.fail()) {
-		cout << "Failed to open this file!" << endl;
-		return 0;
-		}
-	f >> n; /* nhap n */
-	for (i = 1; i <= n; i++)
-		for (j = 1; j <= n + 1; j++)
+
+		system("pause");
+		system("cls");
+		fstream f;
+		cout << " nhap ten file: ";
+		cin >> topicName;
+		f.open((topicName + ".txt").c_str()); /* mo file doc n va ma tran */
+		if (f.fail())
 		{
-			f >> a[i][j]; /* nhap ma tran */
+			do
+			{
+				cout << "Failed to open this file!" << endl;
+				cout << " nhap ten file: ";
+				cin >> topicName;
+				f.open((topicName + ".txt").c_str());
+			} while (f.fail());
 		}
-	if (f == NULL)
-		cout << "So lieu khong hop le";
-	f.close();
-	cout << '\n\n'<< endl;
-	cout << '\t\t\t' << "---------------------------------------------------------------------"<< endl;
-	cout << '\t\t\t\t'<<"   *********************************************"<< endl;
-	cout << '\t\t\t\t\t' <<" MENU giai phuong trinh tuyen tinh "<<'\n' << endl;
-	cout << '\n'<< endl;
-	cout << '\t\t\t\t\t'<< "1. Xuat ma tran"<< '\n' << endl;
-	cout << '\t\t\t\t\t' << "2. Vao file de sua so lieu"<<'\n' << endl;
-	cout << '\t\t\t\t\t' << "3. Giai bang phuong phap gauss siedel"<< '\n' << endl;
-	cout << '\t\t\t\t\t' << "4. EXIT"<<'\n' << endl;
-	cout << '\t\t\t\t' <<"   *********************************************"<< endl;
-	cout << '\t\t\t' <<"---------------------------------------------------------------------"<< endl;
-	cout <<" MOI BAN CHON: ";
-	cin >> chon;
-	switch(chon)
-	{
-		case 1:
+
+		f >> n; /* nhap n */
+		for (i = 1; i <= n; i++)
+			for (j = 1; j <= n + 1; j++)
+			{
+				f >> a[i][j]; /* nhap ma tran */
+			}
+		if (f == NULL)
+			cout << "So lieu khong hop le";
+		f.close();
+		do
+		{
+
+			system("pause");
+			system("cls");
+
+			index();
+			cin >> chon;
+
+			switch (chon)
+			{
+			case 1:
 			{
 				cout << "Ma tran " << n << " hang " << n + 1 << " cot" << endl;
 				cout << "He so cua phuong trinh: " << endl;
 				xuatmatran(a, n);
-				system("pause");
 				break;
-				
+				system("pause");
 			}
-		case 3:
+			case 2:
 			{
 				while (1)
 				{
-					cout << '\n\n' <<" Nhap xap xi nghiem ban dau : " << endl;
+					cout << "\n\n Nhap xap xi nghiem ban dau : " << endl;
 					nhap(x, n);
-					for(i=1;i<=n;i++)
+					for (i = 1; i <= n; i++)
 					{
-						if(a[i][i]==0) cout<< '\t\t\t' << "MATH ERROR !!"; break;
+						if (a[i][i] == 0)
+							for (int j = 1; j <= n + 1; j++)
+							{
+								if (i < n)
+									swap(a[i + 1][j], a[i][j]);
+								else
+									swap(a[1][j], a[i][j]);
+							}
 					}
+
 					dem = 0;
-					
+
 					do
 					{
 						lap = 0;
@@ -130,51 +177,65 @@ int main()
 								return 0; /* ket thuc chuong trinh */
 							if (fabs(x[i] - y[i]) > exp && dem < 30)
 								lap = 1;
-								
 						}
 						for (i = 1; i <= n; i++)
-							{	x[i] = y[i];}
-					
-						for(i=1;i<=n;i++)
-						 {cout << '\t\t' << setprecision(4) << x[i] << "    ||";}
-							  cout<<'\n';
-							
-							
+						{
+							x[i] = y[i];
+						}
+
+						for (i = 1; i <= n; i++)
+						{
+							printf("\t\t%0.4f\t\t||", x[i]);
+						}
+						cout << "\n";
+
 					} while (lap);
 					if (dem < 30)
 					{
-						cout << '\n' <<" Nghiem cua he phuong trinh : ";
+						cout << "\n Nghiem cua he phuong trinh : ";
 						xuat(y, n);
 					}
 					else
-						cout << " "<< '\n' <<" He phtrinh ko giai duoc bang phuong phap nay";
-					cout << '\n\n'<<" Ban tiep tuc ko(c/k)?";
+						cout << " \n He phtrinh ko giai duoc bang phuong phap nay";
+					cout << "\n\n Ban tiep tuc ko(c/k)?";
 					tt = getch();
 					if (tt != 'c')
 						break;
-					system("pause");
 				}
+				break;
 			}
+				system("pause");
+			case 3:
+			{
+
+				break;
+			}
+
 			case 4:
-				{
-					cout <<" ket thuc chuong trinh"<< endl;
-					break;
-					
-				}
-			case 2: 
-				{
-					cout<<"khi sua xong can luu va thoat file de tiep tuc...	";
-    				getline(cin, topicName);
+			{
+				cout << "\t\nnhap ten file: ";
+				cin >> topicName;
 
-    				topicName = "C:\\Users\\DELL\\OneDrive\\Documents\\nhapnvamatran.txt \"" + topicName + "\"";
+				topicName = "notepad \"" + topicName + "\"";
 
-    				system(topicName.c_str());
-    				
-    				break;
-    				system("pause");
-				}
-	}
-    } while(chon!=4);
-	
+				system(topicName.c_str());
+				return 0;
 
+				break;
+				system("pause");
+			}
+			case 5:
+			{
+				cout << "\t\t\tket thuc chuong trinh";
+				return 0;
+			}
+			default:
+			{
+				cout << "MOI BAN NHAP LAI !" << endl;
+				break;
+				system("pause");
+			}
+			}
+		} while (chon != 4);
+	} while (chon != 5);
 }
