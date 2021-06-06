@@ -217,7 +217,6 @@ int main()
 				topicName = "notepad \"" + topicName + "\"";
 
 				system(topicName.c_str());
-				return 0;
 
 				break;
 				system("pause");
