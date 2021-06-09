@@ -8,6 +8,7 @@ using namespace std;
 void mofile(fstream f)
 {
 	int i, j, n;
+	double a[MAX][MAX];
 	string Name;
 	cout << "nhap ten file can sua: ";
 	cin >> Name;
@@ -29,14 +30,14 @@ void mofile(fstream f)
 	for (i = 1; i <= n; i++)
 		for (j = 1; j <= n + 1; j++)
 		{
-			g >> a[i][j]; /* nhap ma tran */
+			f >> a[i][j]; /* nhap ma tran */
 		}
 	if (f == NULL)
 		cout << "So lieu khong hop le";
 	f.close();
 }
 
-void xuatmatran(int a[][MAX], int n) /* xuat ma tran hai chieu */
+void xuatmatran(double a[][MAX], int n) /* xuat ma tran hai chieu */
 {
 	for (int i = 1; i <= n; i++)
 	{
@@ -99,8 +100,8 @@ void index()
 int main()
 {
 	int n, i, j, lap, dem, chon;
-	double x[MAX], y[100];
-	int a[MAX][MAX];
+	double x[MAX], y[MAX];
+	double a[MAX][MAX];
 	char tt;
 	string topicName, Name;
 	fstream f, g;
