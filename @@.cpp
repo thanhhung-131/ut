@@ -3,7 +3,7 @@
 #include <conio.h>
 #include <fstream>
 #define MAX 100
-#define exp 0.001
+#define eps 0.001
 using namespace std;
 void mofile(fstream f)
 {
