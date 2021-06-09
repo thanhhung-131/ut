@@ -5,14 +5,34 @@
 #define MAX 100
 #define exp 0.001
 using namespace std;
-void nhapmatran(int a[][MAX], int n) /* nhap ma tran hai chieu */
-{
-	for (int i = 1; i <= n; i++)
-		for (int j = 1; j <= n + 1; j++)
-		{
-			cout << "a[" << i << "][" << j << "] = ";
-			cin >> a[i][j];
-		}
+void mofile(fstream f) {
+	int i,j,n;
+	string Name;
+	cout << "nhap ten file can sua: ";
+				cin >> Name;
+				Name = "notepad \"" + Name + "\"";
+				system(Name.c_str());
+				f.open((Name + ".txt").c_str()); /* mo file doc n va ma tran */
+				if (f.fail())
+				{
+					do
+					{
+						cout << "Failed to open this file!" << endl;
+						cout << " \t\t\tnhap lai ten file: ";
+						cin >> Name;
+						f.open((Name + ".txt").c_str());
+					} while (f.fail());
+				}
+
+				f >> n; /* nhap n */
+				for (i = 1; i <= n; i++)
+					for (j = 1; j <= n + 1; j++)
+					{
+						g >> a[i][j]; /* nhap ma tran */
+					}
+				if (f == NULL)
+					cout << "So lieu khong hop le";
+				f.close();
 }
 
 void xuatmatran(int a[][MAX], int n) /* xuat ma tran hai chieu */
@@ -54,7 +74,7 @@ void index()
 {
 	system("cls"); // lenh xoa man hinh
 	cout << "\t\t\t---------------------------------------------------------------------" << endl;
-	cout << "\t\t\t\t   ***************************************" << endl;
+	cout << "\t\t\t\t   *************************************" << endl;
 	cout << "\t\t\t\t\t MENU giai phuong trinh tuyen tinh\n"
 		 << endl;
 	cout << "\n"
@@ -70,7 +90,7 @@ void index()
 		 << endl;
 	cout << "\t\t\t\t\t5 EXIT\n"
 		 << endl;
-	cout << "\t\t\t\t   ***************************************" << endl;
+	cout << "\t\t\t\t   *************************************" << endl;
 	cout << "\t\t\t---------------------------------------------------------------------" << endl;
 	cout << " MOI BAN CHON: ";
 }
@@ -82,7 +102,7 @@ int main()
 	int a[MAX][MAX];
 	char tt;
 	string topicName, Name;
-
+    fstream f,g;
 	cout << "          ----------------------------------------------------------------------------------------------------" << endl;
 	cout << "          |                                     NHOM SINH VIEN THUC HIEN                                     |" << endl;
 	cout << "          |                                          HO THANH HUNG                                           |" << endl;
@@ -90,35 +110,13 @@ int main()
 	cout << "          |                                        DE TAI DO AN KY 2                                         |" << endl;
 	cout << "          |                  VIET CHUONG TRINH GIAI HE PHUONG TRINH BANG PHUONG PHAP GAUSS SEIDEL            |" << endl;
 	cout << "          ----------------------------------------------------------------------------------------------------" << endl;
+
 	do
 	{
 
 		system("pause");
 		system("cls");
-		fstream f;
-		cout << " nhap ten file: ";
-		cin >> topicName;
-		f.open((topicName + ".txt").c_str()); /* mo file doc n va ma tran */
-		if (f.fail())
-		{
-			do
-			{
-				cout << "Failed to open this file!" << endl;
-				cout << " nhap ten file: ";
-				cin >> topicName;
-				f.open((topicName + ".txt").c_str());
-			} while (f.fail());
-		}
-
-		f >> n; /* nhap n */
-		for (i = 1; i <= n; i++)
-			for (j = 1; j <= n + 1; j++)
-			{
-				f >> a[i][j]; /* nhap ma tran */
-			}
-		if (f == NULL)
-			cout << "So lieu khong hop le";
-		f.close();
+		mofile(f);
 		do
 		{
 
@@ -197,6 +195,7 @@ int main()
 					}
 					else
 						cout << " \n He phtrinh ko giai duoc bang phuong phap nay";
+
 					cout << "\n\n Ban tiep tuc ko(c/k)?";
 					tt = getch();
 					if (tt != 'c')
@@ -214,13 +213,15 @@ int main()
 			case 4:
 			{
 
-				Name = "notepad \"" + topicName + "\"";
-
+				cout << "nhap ten file can sua: ";
+				cin >> Name;
+				Name = "notepad \"" + Name + "\"";
 				system(Name.c_str());
+				mofile(g);
 
 				break;
-				system("pause");
 			}
+				system("pause");
 			case 5:
 			{
 				cout << "\t\t\tket thuc chuong trinh";
@@ -230,9 +231,9 @@ int main()
 			{
 				cout << "MOI BAN NHAP LAI !" << endl;
 				break;
+			}
 				system("pause");
 			}
-			}
-		} while (chon != 3);
+		} while ((chon != 3));
 	} while (chon != 5);
 }
