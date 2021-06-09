@@ -5,34 +5,35 @@
 #define MAX 100
 #define exp 0.001
 using namespace std;
-void mofile(fstream f) {
-	int i,j,n;
+void mofile(fstream f)
+{
+	int i, j, n;
 	string Name;
 	cout << "nhap ten file can sua: ";
-				cin >> Name;
-				Name = "notepad \"" + Name + "\"";
-				system(Name.c_str());
-				f.open((Name + ".txt").c_str()); /* mo file doc n va ma tran */
-				if (f.fail())
-				{
-					do
-					{
-						cout << "Failed to open this file!" << endl;
-						cout << " \t\t\tnhap lai ten file: ";
-						cin >> Name;
-						f.open((Name + ".txt").c_str());
-					} while (f.fail());
-				}
+	cin >> Name;
+	Name = "notepad \"" + Name + "\"";
+	system(Name.c_str());
+	f.open((Name + ".txt").c_str()); /* mo file doc n va ma tran */
+	if (f.fail())
+	{
+		do
+		{
+			cout << "Failed to open this file!" << endl;
+			cout << " \t\t\tnhap lai ten file: ";
+			cin >> Name;
+			f.open((Name + ".txt").c_str());
+		} while (f.fail());
+	}
 
-				f >> n; /* nhap n */
-				for (i = 1; i <= n; i++)
-					for (j = 1; j <= n + 1; j++)
-					{
-						g >> a[i][j]; /* nhap ma tran */
-					}
-				if (f == NULL)
-					cout << "So lieu khong hop le";
-				f.close();
+	f >> n; /* nhap n */
+	for (i = 1; i <= n; i++)
+		for (j = 1; j <= n + 1; j++)
+		{
+			g >> a[i][j]; /* nhap ma tran */
+		}
+	if (f == NULL)
+		cout << "So lieu khong hop le";
+	f.close();
 }
 
 void xuatmatran(int a[][MAX], int n) /* xuat ma tran hai chieu */
@@ -102,7 +103,7 @@ int main()
 	int a[MAX][MAX];
 	char tt;
 	string topicName, Name;
-    fstream f,g;
+	fstream f, g;
 	cout << "          ----------------------------------------------------------------------------------------------------" << endl;
 	cout << "          |                                     NHOM SINH VIEN THUC HIEN                                     |" << endl;
 	cout << "          |                                          HO THANH HUNG                                           |" << endl;
