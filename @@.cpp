@@ -94,7 +94,6 @@ void calculate(double a[][MAX],int &n){
 	double x[MAX], y[MAX];
 	cout << "\n\n Nhap xap xi nghiem ban dau : " << endl;
 	nhap(x, n);
-	xuatmatran(a,n);
 	do
 		{
 			lap = 0;
