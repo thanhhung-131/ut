@@ -3,52 +3,68 @@
 #include <conio.h>
 #include <fstream>
 #define MAX 100
-#define eps 0.001
+#define exp 0.001
 using namespace std;
-void mofile(fstream f)
-{
-	int i, j, n;
-	double a[MAX][MAX];
-	string Name;
-	cout << "nhap ten file can sua: ";
-	cin >> Name;
-	Name = "notepad \"" + Name + "\"";
-	system(Name.c_str());
-	f.open((Name + ".txt").c_str()); /* mo file doc n va ma tran */
-	if (f.fail())
+void readfile(double a[][MAX],int &n,string topicName){
+	fstream g;
+	g.open((topicName + ".txt").c_str()); /* mo file doc n va ma tran */
+	if (g.fail())
 	{
 		do
 		{
 			cout << "Failed to open this file!" << endl;
-			cout << " \t\t\tnhap lai ten file: ";
-			cin >> Name;
-			f.open((Name + ".txt").c_str());
-		} while (f.fail());
+			g.open((topicName + ".txt").c_str());
+		} while (!g.fail());
 	}
-
-	f >> n; /* nhap n */
-	for (i = 1; i <= n; i++)
-		for (j = 1; j <= n + 1; j++)
+	g >> n; /* nhap n */
+	for (int i = 1; i <= n; i++)
+		for (int j = 1; j <= n + 1; j++)
 		{
-			f >> a[i][j]; /* nhap ma tran */
+			g >> a[i][j]; /* nhap ma tran */
 		}
-	if (f == NULL)
+	if (g == NULL)
 		cout << "So lieu khong hop le";
-	f.close();
+	g.close();
 }
-
-void xuatmatran(double a[][MAX], int n) /* xuat ma tran hai chieu */
+void biendoimatran(double a[][MAX], int &n){
+	int i,j,k;
+	for (i = 1; i <= n; i++){
+		for (j = 1; j <= n + 1; j++)
+		if (a[i][j] == 0) {
+			for (k = 1; k <= n + 1; k++)
+		    	a[i][k] += a[i+1][k];
+		}
+	}
+}
+void editfile(double a[][MAX], int &n)
+{
+	int i, j;
+	string topicName,fileName;
+	cout << "nhap ten file can sua: ";
+	cin >> fileName;
+	topicName = "notepad \"" + fileName + "\"";
+	system(topicName.c_str());
+	readfile(a,n,fileName);
+}
+void openfile(double a[][MAX],int &n) {
+	int i,j;	
+	string Name;
+	cout << "nhap ten file: ";
+	cin >> Name;
+	readfile(a,n,Name);
+}
+void xuatmatran(double a[][MAX], int &n) /* xuat ma tran hai chieu */
 {
 	for (int i = 1; i <= n; i++)
 	{
 		cout << "\t\t\t\t";
 		for (int j = 1; j <= n + 1; j++)
-			std::cout << a[i][j] << "\t";
+			cout << a[i][j] << "\t";
 		cout << "\n\n"
 			 << endl;
 	}
 }
-void nhap(double *a, int n)
+void nhap(double *a, int &n)
 { /* nhap day n phan tu */
 	int i;
 	for (i = 1; i <= n; i++)
@@ -58,7 +74,7 @@ void nhap(double *a, int n)
 	}
 }
 /* Xuat day n phan tu */
-void xuat(double a[], int n)
+void xuat(double a[], int &n)
 {
 	int i;
 	for (i = 1; i <= n; i++)
@@ -66,7 +82,7 @@ void xuat(double a[], int n)
 		cout << "\n\t\tx[" << i << "]= " << a[i] << " ";
 	}
 }
-void swap(int &a, int &b)
+void swap(double &a, double &b)
 {
 	int temp = a;
 	a = b;
@@ -102,9 +118,8 @@ int main()
 	int n, i, j, lap, dem, chon;
 	double x[MAX], y[MAX];
 	double a[MAX][MAX];
-	char tt;
-	string topicName, Name;
-	fstream f, g;
+	char tt,f,g;
+	string Name;
 	cout << "          ----------------------------------------------------------------------------------------------------" << endl;
 	cout << "          |                                     NHOM SINH VIEN THUC HIEN                                     |" << endl;
 	cout << "          |                                          HO THANH HUNG                                           |" << endl;
@@ -118,7 +133,7 @@ int main()
 
 		system("pause");
 		system("cls");
-		mofile(f);
+		openfile(a,n);
 		do
 		{
 
@@ -144,18 +159,19 @@ int main()
 				{
 					cout << "\n\n Nhap xap xi nghiem ban dau : " << endl;
 					nhap(x, n);
-					for (i = 1; i <= n; i++)
-					{
-						if (a[i][i] == 0)
-							for (int j = 1; j <= n + 1; j++)
-							{
-								if (i < n)
-									swap(a[i + 1][j], a[i][j]);
-								else
-									swap(a[1][j], a[i][j]);
-							}
-					}
-
+					biendoimatran(a,n);
+//					for (i = 1; i <= n; i++)
+//					{
+//						if (a[i][i] == 0)
+//							for (int j = 1; j <= n + 1; j++)
+//							{
+//								if (i < n)
+//									swap(a[i + 1][j], a[i][j]);
+//								else
+//									swap(a[1][j], a[i][j]);
+//							}
+//					}
+					xuatmatran(a,n);
 					dem = 0;
 
 					do
@@ -205,7 +221,7 @@ int main()
 				}
 				break;
 			}
-				system("pause");
+				
 			case 3:
 			{
 
@@ -214,16 +230,9 @@ int main()
 
 			case 4:
 			{
-
-				cout << "nhap ten file can sua: ";
-				cin >> Name;
-				Name = "notepad \"" + Name + "\"";
-				system(Name.c_str());
-				mofile(g);
-
+				editfile(a,n);
 				break;
 			}
-				system("pause");
 			case 5:
 			{
 				cout << "\t\t\tket thuc chuong trinh";
@@ -234,7 +243,6 @@ int main()
 				cout << "MOI BAN NHAP LAI !" << endl;
 				break;
 			}
-				system("pause");
 			}
 		} while ((chon != 3));
 	} while (chon != 5);
